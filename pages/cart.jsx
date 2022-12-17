@@ -17,7 +17,6 @@ const Cart = () => {
   const [open, setOpen] = useState(false);
   const [cash, setCash] = useState(false);
   const amount = cart.total;
-  const currency = "INR";
   const style = { layout: "vertical" };
   const dispatch = useDispatch();
   const router = useRouter();
@@ -34,58 +33,7 @@ const Cart = () => {
     }
   };
 
-  // Custom component to wrap the PayPalButtons and handle currency changes
-  // const ButtonWrapper = ({ currency, showSpinner }) => {
-  //   // usePayPalScriptReducer can be use only inside children of PayPalScriptProviders
-  //   // This is the main reason to wrap the PayPalButtons in a new component
-  //   const [{ options, isPending }, dispatch] = usePayPalScriptReducer();
 
-  //   useEffect(() => {
-  //     dispatch({
-  //       type: "resetOptions",
-  //       value: {
-  //         ...options,
-  //         currency: currency,
-  //       },
-  //     });
-  //   }, [currency, showSpinner]);
-
-  //   return (
-  //     <>
-  //       {showSpinner && isPending && <div className="spinner" />}
-  //       <PayPalButtons
-  //         style={style}
-  //         disabled={false}
-  //         forceReRender={[amount, currency, style]}
-  //         fundingSource={undefined}
-  //         createOrder={async (data, actions) => {
-  //           const orderId = await actions.order
-  //             .create({
-  //               purchase_units: [
-  //                 {
-  //                   amount: {
-  //                     currency_code: currency,
-  //                     value: amount,
-  //                   },
-  //                 },
-  //               ],
-  //             });
-  //           return orderId;
-  //         }}
-  //         onApprove={async function (data, actions) {
-  //           const details = await actions.order.capture();
-  //           const shipping = details.purchase_units[0].shipping;
-  //           createOrder({
-  //             customer: shipping.name.full_name,
-  //             address: shipping.address.address_line_1,
-  //             total: cart.total,
-  //             method: 1,
-  //           });
-  //         }}
-  //       />
-  //     </>
-  //   );
-  // };
 
   return (
     <div className={styles.container}>
@@ -160,17 +108,7 @@ const Cart = () => {
               >
                 CASH ON DELIVERY
               </button>
-              {/* <PayPalScriptProvider
-                options={{
-                  "client-id":
-                    "AaV7al0LB-xXy_s0UqzRPwanoCJaZHd52Y9Op4fVocPZTc11GYV-bxFq0uGvrdawyKWE628ByMjx71lH",
-                  components: "buttons",
-                  currency: "INR",
-                  "disable-funding": "credit,card,p24",
-                }}
-              >
-                <ButtonWrapper currency={currency} showSpinner={false} />
-              </PayPalScriptProvider> */}
+  
             </div>
           ) : ( 
             <button onClick={() => setOpen(true)} className={styles.button}>
