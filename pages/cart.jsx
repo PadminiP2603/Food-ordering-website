@@ -2,11 +2,6 @@ import styles from "../styles/Cart.module.css";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import {
-  PayPalScriptProvider,
-  PayPalButtons,
-  usePayPalScriptReducer,
-} from "@paypal/react-paypal-js";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { reset } from "../redux/cartSlice";
@@ -23,7 +18,7 @@ const Cart = () => {
 
   const createOrder = async (data) => {
     try {
-      const res = await axios.post("http://localhost:3000/api/orders", data);
+      const res = await axios.post("https://react-food-website-beryl.vercel.app/", data);
       if (res.status === 201) {
         dispatch(reset());
         router.push(`/orders/${res.data._id}`);
