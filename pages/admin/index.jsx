@@ -12,7 +12,8 @@ const Index = ({ orders, products }) => {
     console.log(id);
     try {
       const res = await axios.delete(
-        "http://localhost:3000/api/products/" + id
+        "https://react-food-website-beryl.vercel.app" + id
+        
       );
       setPizzaList(pizzaList.filter((pizza) => pizza._id !== id));
     } catch (err) {
@@ -25,7 +26,7 @@ const Index = ({ orders, products }) => {
     const currentStatus = item.status;
 
     try {
-      const res = await axios.put("http://localhost:3000/api/orders/" + id, {
+      const res = await axios.put("https://react-food-website-beryl.vercel.app" + id, {
         status: currentStatus + 1,
       });
       setOrderList([
@@ -65,7 +66,7 @@ const Index = ({ orders, products }) => {
                 </td>
                 <td>{product._id.slice(0, 5)}...</td>
                 <td>{product.title}</td>
-                <td>₹{product.prices[0]}</td>
+                <td>${product.prices[0]}</td>
                 <td>
                   <button className={styles.button}>Edit</button>
                   <button
@@ -98,7 +99,7 @@ const Index = ({ orders, products }) => {
               <tr className={styles.trTitle}>
                 <td>{order._id.slice(0, 5)}...</td>
                 <td>{order.customer}</td>
-                <td>₹{order.total}</td>
+                <td>${order.total}</td>
                 <td>
                   {order.method === 0 ? <span>cash</span> : <span>paid</span>}
                 </td>
@@ -129,8 +130,9 @@ export const getServerSideProps = async (ctx) => {
     };
   }
 
-  const productRes = await axios.get("http://localhost:3000/api/products");
-  const orderRes = await axios.get("http://localhost:3000/api/orders");
+ 
+  const productRes = await axios.get("https://react-food-website-beryl.vercel.app/");
+  const orderRes = await axios.get("https://react-food-website-beryl.vercel.app/");
 
   return {
     props: {
